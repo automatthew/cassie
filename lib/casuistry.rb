@@ -1,5 +1,6 @@
+require 'properties'
 # Markaby-ish way to declare CSS
-class CSS
+class Casuistry
   
   attr_reader :output
   
@@ -8,11 +9,16 @@ class CSS
     @output = upstream_output || []
   end
   
+  def self.process(file)
+    cas = File.read(file)
+    self.new.instance_eval(cas).join("\n")
+  end
+  
   # this will need to be an array of actual CSS attributes
-  %w{ font_size line_height border }.each do |method_name|
+  CSS_PROPERTIES.each do |method_name|
     define_method method_name do |*args|
       css_attr = method_name.gsub('_', '-')
-      r = "#{css_attr}: #{args.join(' ')};\n"
+      r = "#{css_attr}: #{args.join(' ')};"
       @output << r
       @output
     end
@@ -31,43 +37,13 @@ class CSS
     selector = "#{@selector} #{local_selector}"
     if block
       @output << "#{selector}\n{"
-      CSS.new.instance_eval(&block).each do |line|
+      Casuistry.new.instance_eval(&block).each do |line|
         @output << "  #{line}"
       end
       @output << "}"
     else
-      CSS.new(local_selector, @output)
+      Casuistry.new(local_selector, @output)
     end
   end
   
 end
-
-
-css = CSS.new
-css.instance_eval do
-
-  blick.recent do
-    font_size('2em')
-    line_height('3em')
-  
-  end
-
-  milk! do
-    border('1px', :solid, :red )
-  end
-
-end
-
-puts css.output
-# >> .blick .recent
-# >> {
-# >>   font-size: 2em;
-# >>   line-height: 3em;
-# >> }
-# >>  #milk
-# >> {
-# >>   border: 1px solid red;
-# >> }
-
-
-

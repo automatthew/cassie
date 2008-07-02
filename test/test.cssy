@@ -1,0 +1,9 @@
+# test.cssy
+class_name1.class_name2 do
+  font_size('2em')
+  line_height('3em')
+end
+milk! do
+  background_color(:blue)
+  border('1px', :solid, :red )
+end
