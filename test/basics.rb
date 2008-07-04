@@ -33,22 +33,11 @@ describe "Casuistry" do
     c.selectify("smurf").should == ".smurf"
   end
 
-  it "stuff" do
+  it "processes cssy code" do
     c = Casuistry.new
-    thingy = "34px"
     c.process(File.read( "#{here}/fiddle.cssy"))
     c.data.should == @data3
     
-  end
-
-  
-  # it "can process a file" do
-  #   thing = Casuistry.process("#{here}/test.cssy")
-  #   thing.data.should == @data
-  # end
-  
-  it "might do nesting?" do
-    # Casuistry.process("#{here}/nesting.cssy").should == 1  
   end
   
   
