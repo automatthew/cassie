@@ -1,31 +1,109 @@
 require 'properties'
+require 'tags'
+
+require 'pp'
+
 # Markaby-ish way to declare CSS
 class Casuistry
   
-  attr_reader :output
+  include Tags
   
-  def initialize(selector=nil, upstream_output=nil)
-    @selector = selector
-    @output = upstream_output || []
-  end
+  attr_reader :data, :assigns
   
-  def self.process(file, assigns={})
+  def self.process(file)
     cssy = File.read(file)
     c = self.new
-    c.instance_eval do
-      assigns.each { |key,val| instance_variable_set("@#{key}",val) }
-    end
-    c.instance_eval(cssy).join("\n")
+    c.process(cssy)
+    c
   end
   
-  # this will need to be an array of actual CSS attributes
+  def process(string)
+    self.instance_eval(string)
+  end
+  
+  def initialize(selector=nil)
+    @selector = selector
+    @data = []
+  end
+
+  
+  # # methods named after html tags use selector_eval
+  # methods =  HTML_TAGS.map do |tag|
+  #   "def #{tag}(&block); selector_eval(@selector, '#{tag}', &block);end\n"
+  # end.join
+  # 
+  # module_eval methods
+  
+  
+  def selector_eval(*args, &block)
+    selector = args.compact.join(" ")
+    Selector.new(selector, self).instance_eval(&block)
+  end
+
+  
+  def selectify(method_name)
+    matches = method_name.to_s.match( /([\w_]+)!$/)
+    matches ? "##{matches[1]}" : ".#{method_name}"
+  end
+  
+  def method_missing(name, &block)
+    selector = selectify(name)
+    if block
+      selector_eval(@selector, selector, &block)
+    else
+      x = [@selector, selector].compact.join(' ')
+      Selector.new(x, self)
+    end
+  end
+  
+end
+
+class Selector
+  include Tags
+  def initialize(base_selector, casuist)
+    @selector = base_selector
+    @casuist = casuist
+    # @properties = []
+    # @casuist.data << [@selector, @properties]
+  end
+  
+  
+  # # methods named after html tags use selector_eval
+  # methods =  HTML_TAGS.map do |tag|
+  #   "def #{tag}(&block); selector_eval(@selector, '#{tag}', &block);end\n"
+  # end.join
+  # 
+  # module_eval methods
+  
+  
+  def selector_eval(*args, &block)
+    selector = args.compact.join(" ")
+    if block
+      Selector.new(selector, @casuist).instance_eval(&block)
+    else
+       Selector.new(selector, @casuist)
+    end
+  end
+  
   CSS_PROPERTIES.each do |method_name|
     define_method method_name do |*args|
       css_attr = method_name.gsub('_', '-')
-      r = "#{css_attr}: #{args.join(' ')};"
-      @output << r
-      @output
+      property(css_attr, args)
     end
+  end
+  
+  def properties
+    if @properties
+      return @properties
+    else
+      @properties ||= []
+      @casuist.data << [@selector, @properties]
+      @properties
+    end
+  end
+  
+  def property(css_attr, *args)
+    properties << "#{css_attr}: #{args.join(' ')};"
   end
   
   def selectify(method_name)
@@ -33,38 +111,15 @@ class Casuistry
     matches ? "##{matches[1]}" : ".#{method_name}"
   end
   
-  
-  # Unknown methods are treated as selector classses and ids
-  # per the Markaby standard
   def method_missing(name, &block)
-    local_selector = selectify(name)
-    selector = @selector ? "#{@selector} #{local_selector}" : local_selector
+    selector = selectify(name)
     if block
-      @output << "#{selector}\n{"
-      Property.new.instance_eval(&block).each do |line|
-        @output << "  #{line}"
-      end
-      @output << "}"
+      selector_eval(@selector, selector, &block)
     else
-      Casuistry.new(selector, @output)
+      x = [@selector, selector].join(' ')
+      Selector.new(x, @casuist)
     end
   end
   
 end
 
-class Property
-    
-  def initialize(upstream_output=nil)
-    @output = upstream_output || []
-  end
-  
-  CSS_PROPERTIES.each do |method_name|
-    define_method method_name do |*args|
-      css_attr = method_name.gsub('_', '-')
-      r = "#{css_attr}: #{args.join(' ')};"
-      @output << r
-      @output
-    end
-  end
-  
-end

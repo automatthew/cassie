@@ -11,3 +11,9 @@ milk! do
   border('1px', :solid, :red )
 end
 
+# @thing = [
+#     [ '.class_name1 .class_name2 .class_name3', 
+#         [ 'font-size: 2em;', 'line-height: 3em;', 'border: 1px solid blue;']],
+#     [ '#milk', 
+#         ['background-color: blue;', 'border: 1px solid red']]
+# ]

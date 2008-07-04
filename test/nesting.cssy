@@ -1,0 +1,13 @@
+div.header! do
+  width('500px')
+  
+  ul.menu! do
+    background(:gray)
+  end
+  
+end
+
+data2 = [
+  [ '#header', ['width: 500px;'] ],
+  [ '#header #menu', ['background: gray;']]
+]

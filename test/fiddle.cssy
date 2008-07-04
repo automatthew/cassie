@@ -1,0 +1,26 @@
+ul do
+  property('background', 'red')
+  
+  li.ugly do
+    color('green')
+  end
+  
+  smurf.house do
+    height('256px')
+  end
+  
+  asrael! do
+    padding("10px")
+  end
+  
+  width('134px')
+  
+end
+
+gargamel do
+  margin("0px")
+end
+
+outer.middle.inner do
+  top("34px")
+end
