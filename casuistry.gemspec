@@ -11,11 +11,11 @@ Gem::Specification.new do |s|
   s.date = %q{2008-07-07}
   s.description = %q{Generates CSS using Ruby, like Markaby}
   s.email = %q{automatthew@gmail.com}
-  s.extra_rdoc_files = ["lib/casuistry.rb", "lib/properties.rb", "lib/tags.rb", "README"]
-  s.files = ["casuistry.gemspec", "lib/casuistry.rb", "lib/properties.rb", "lib/tags.rb", "Manifest", "README", "test/basics.rb", "test/experiment.cssy", "test/fiddle.cssy", "test/helper.rb", "test/nesting.cssy", "test/test.css", "test/test.cssy"]
+  s.extra_rdoc_files = ["lib/casuistry.rb", "lib/properties.rb", "lib/tags.rb", "README.rdoc"]
+  s.files = ["casuistry.gemspec", "lib/casuistry.rb", "lib/properties.rb", "lib/tags.rb", "Manifest", "README.rdoc", "test/basics.rb", "test/dan.css", "test/experiment.cssy", "test/fiddle.cssy", "test/helper.rb", "test/nesting.cssy", "test/test.css", "test/test.cssy"]
   s.has_rdoc = true
   s.homepage = %q{}
-  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Casuistry", "--main", "README"]
+  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Casuistry", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{casuistry}
   s.rubygems_version = %q{1.2.0}

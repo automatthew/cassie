@@ -3,8 +3,9 @@ lib/casuistry.rb
 lib/properties.rb
 lib/tags.rb
 Manifest
-README
+README.rdoc
 test/basics.rb
+test/dan.css
 test/experiment.cssy
 test/fiddle.cssy
 test/helper.rb
