@@ -1,0 +1,23 @@
+A CSS companion to Markaby.  Would be nice if you could interpolate variables.
+
+  css = Casuistry.new
+  css.instance_eval do
+    ul do
+      background('red')
+      li.ugly do
+        color('green')
+      end
+      smurf.house do
+        height('256px')
+      end
+      asrael! do
+        padding("10px")
+      end
+    end
+    outer.middle.inner do
+      top("34px")
+    end
+  end
+  
+  css.data    #=> array of arrays
+  css.output  #=> string of css
