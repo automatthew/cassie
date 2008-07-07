@@ -1,6 +1,8 @@
+casuistry.gemspec
 lib/casuistry.rb
 lib/properties.rb
 lib/tags.rb
+Manifest
 README
 test/basics.rb
 test/experiment.cssy
@@ -9,4 +11,3 @@ test/helper.rb
 test/nesting.cssy
 test/test.css
 test/test.cssy
-Manifest
