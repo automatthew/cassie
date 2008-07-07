@@ -1,8 +1,6 @@
 require 'properties'
 require 'tags'
 
-require 'pp'
-
 # Markaby-ish way to declare CSS
 class Casuistry
   
@@ -25,15 +23,16 @@ class Casuistry
     @selector = selector
     @data = []
   end
-
   
-  # # methods named after html tags use selector_eval
-  # methods =  HTML_TAGS.map do |tag|
-  #   "def #{tag}(&block); selector_eval(@selector, '#{tag}', &block);end\n"
-  # end.join
-  # 
-  # module_eval methods
-  
+  def output
+    output = ""
+    @data.each do |selector|
+      output << selector.first
+      properties = selector.last.map { |s| "  #{s}" }.join("\n")
+      output << "\n{\n#{properties}\n}\n"
+    end
+    output
+  end
   
   def selector_eval(*args, &block)
     selector = args.compact.join(" ")
@@ -63,18 +62,8 @@ class Selector
   def initialize(base_selector, casuist)
     @selector = base_selector
     @casuist = casuist
-    # @properties = []
-    # @casuist.data << [@selector, @properties]
   end
-  
-  
-  # # methods named after html tags use selector_eval
-  # methods =  HTML_TAGS.map do |tag|
-  #   "def #{tag}(&block); selector_eval(@selector, '#{tag}', &block);end\n"
-  # end.join
-  # 
-  # module_eval methods
-  
+
   
   def selector_eval(*args, &block)
     selector = args.compact.join(" ")
@@ -123,3 +112,4 @@ class Selector
   
 end
 
+Cssy = Casuistry

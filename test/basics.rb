@@ -24,6 +24,34 @@ describe "Casuistry" do
       [".gargamel", ["margin: 0px;"]],
       [".outer .middle .inner", ["top: 34px;"]]
     ]
+    
+    @css1 = <<-CSS
+ul
+{
+  background: red;
+  width: 134px;
+}
+ul li .ugly
+{
+  color: green;
+}
+ul .smurf .house
+{
+  height: 256px;
+}
+ul #asrael
+{
+  padding: 10px;
+}
+.gargamel
+{
+  margin: 0px;
+}
+.outer .middle .inner
+{
+  top: 34px;
+}
+    CSS
   end
 
 
@@ -35,9 +63,12 @@ describe "Casuistry" do
 
   it "processes cssy code" do
     c = Casuistry.new
+    c.instance_eval do
+      @background = "red"
+    end
     c.process(File.read( "#{here}/fiddle.cssy"))
     c.data.should == @data3
-    
+    c.output.should == @css1
   end
   
   

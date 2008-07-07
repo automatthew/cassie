@@ -1,0 +1,19 @@
+selector "div.foo > ul.bar" do
+  
+  width "137px"
+  color :blue
+  
+  selector "a:hover" do
+    color :red
+    background :gray
+  end
+  
+  child "li.monkey" do
+    list_style :none
+  end
+  
+  sibling "p" do
+    margin "10px"
+  end
+  
+end

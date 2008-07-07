@@ -1,19 +1,11 @@
 # test.cssy
 
-class_name1.class_name2.class_name3 do
-  font_size('2em')
-  line_height('3em')
-  border "1px solid blue"
+# anonymous selector
+selector 'ul > li' do
+  
 end
 
-milk! do
-  background_color(:blue)
-  border('1px', :solid, :red )
+# named selector
+menu_header 'div#header h3' do
+  
 end
-
-# @thing = [
-#     [ '.class_name1 .class_name2 .class_name3', 
-#         [ 'font-size: 2em;', 'line-height: 3em;', 'border: 1px solid blue;']],
-#     [ '#milk', 
-#         ['background-color: blue;', 'border: 1px solid red']]
-# ]

@@ -1,5 +1,5 @@
 ul do
-  property('background', 'red')
+  background('red')
   
   li.ugly do
     color('green')
