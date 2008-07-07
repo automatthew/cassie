@@ -2,10 +2,11 @@ A CSS companion to Markaby.  Would be nice if you could interpolate variables.
 
   css = Casuistry.new
   css.instance_eval do
+    my_favorite_color = :green
     ul do
       background('red')
       li.ugly do
-        color('green')
+        color(my_favorite_color)
       end
       smurf.house do
         height('256px')

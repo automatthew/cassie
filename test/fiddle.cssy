@@ -1,8 +1,11 @@
+favorite = 'green'
+
 ul do
+  
   background('red')
   
   li.ugly do
-    color('green')
+    color(favorite)
   end
   
   smurf.house do
