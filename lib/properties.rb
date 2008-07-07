@@ -50,7 +50,10 @@ list_style_image
 list_style_position
 list_style_type
 margin
+margin_left
 margin_top
+margin_right
+margin_bottom
 marker_offset
 marks
 max_height
@@ -64,7 +67,10 @@ outline_style
 outline_width
 overflow
 padding
+padding_left
 padding_top
+padding_right
+padding_bottom
 page
 page_break_after
 page_break_before
