@@ -88,7 +88,7 @@ class Selector
       @properties = []
       @casuist.data << [@selector.first, @properties]
       yield
-      @selector.shift 
+      @selector.shift
     else
       @selector.unshift selector
     end
@@ -107,14 +107,13 @@ class Selector
   def method_missing(name, &block)
     selector = selectify(name)
     if block_given?
-      @selector.unshift "#{@selector.first} #{selector}"
+      @selector[0] = [@selector.first, selector].compact.join(" ")
       @properties = []
       @casuist.data << [@selector.first, @properties]
       yield
       @selector.shift
     else
-      @selector.unshift "#{@selector.first} #{selector}"
-      # puts @selector.first.inspect
+      @selector.unshift [@selector.first, selector].compact.join(" ")
     end
     self
   end

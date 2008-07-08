@@ -13,9 +13,12 @@ describe "Casuistry" do
     ]
     @data2 = [
       ["ul", ["background: red;"]],
-      # ["ul li", ["color: green;"]],
+      ["ul li", ["color: green;"]],
       ["ul li .ugly", ["color: aqua;"]],
-      ["ul .smurf .house", ["height: 256px;"]]
+      ["ul .smurf .house", ["height: 256px;"]],
+      ["ul #asrael", ["padding: 10px;"]],
+      [".gargamel", ["margin: 0px;"]],
+      [".outer .middle .inner", ["top: 34px;"]]
     ]
     
     @data3 = [
