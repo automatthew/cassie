@@ -8,11 +8,8 @@ class Casuistry
   
   attr_reader :data, :assigns
   
-  def self.process(file)
-    cssy = File.read(file)
-    c = self.new
-    c.process(cssy)
-    c
+  def self.process(*args,&block)
+    self.new.process(*args,&block)
   end
       
   def initialize(selector=nil)
@@ -20,8 +17,13 @@ class Casuistry
     @data = []
   end
   
-  def process(string)
-    Selector.new(@selector, self).instance_eval(string)
+  def process(*args, &block)
+    if block
+      Selector.new(@selector, self).instance_eval(&block)
+    else
+      Selector.new(@selector, self).instance_eval(args.join("\n"))
+    end
+    @data
   end
   
   def output
@@ -34,45 +36,83 @@ class Casuistry
     output
   end
   
-  
-  # def selector_eval(*args, &block)
-  #   selector = args.compact.join(" ")
-  #   Selector.new(selector, self).selector_eval(&block)
-  # end
-  # 
-  # 
-  # def selectify(method_name)
-  #   matches = method_name.to_s.match( /([\w_]+)!$/)
-  #   matches ? "##{matches[1]}" : ".#{method_name}"
-  # end
-  # 
-  # def method_missing(*name)
-  #   selector = selectify(name)
-  #   if block_given?
-  #     selector_eval(@selector, selector, &block)
-  #   else
-  #     x = [@selector, selector].compact.join(' ')
-  #     Selector.new(x, self)
-  #   end
-  # end
-  
 end
 
 class Selector
-  # include Tags
+  
   def initialize(base_selector, casuist)
-    @selector = [base_selector]
+    @selectors = [ base_selector ]
+    @properties = []
     @casuist = casuist
+    # possible states are :rest, :chaining, :processing
+    @state = :rest
   end
+  
+  
+  # transitions
+  def processing(new_selector)
+    case @state
+    when :rest
+      combined_selector = [current_selector, new_selector].compact.join(" ")
+      @selectors.push combined_selector
+      @properties.push []
+      @casuist.data << [current_selector, current_properties ]
+      puts @state = :processing
+    when :chaining
+      current_selector = "#{current_selector}#{new_selector}"
+      @properties.push []
+      @casuist.data << [current_selector, current_properties ]
+      puts @state = :processing
+    else
+      raise "You can't get to :processing from #{@state.inspect}"
+    end
+  end
+  
+  def chaining(new_selector)
+    case @state
+    when :rest
+      combined_selector = [current_selector, new_selector].compact.join(" ")
+      @selectors.push combined_selector
+      puts @state = :chaining
+    when :chaining
+      current_selector = "#{current_selector}#{new_selector}"
+    else
+      raise "You can't get to :chaining from #{@state.inspect}"
+    end
+  end
+  
+  def rest
+    case @state
+    when :processing
+      @selectors.pop
+      @properties.pop
+      puts @state = :rest
+    else
+      raise "You can't get to :rest from #{@state.inspect}"
+    end
+  end
+  
+  
+# methods
 
+  def current_selector
+      @selectors[-1]
+  end
+  
+  def current_properties
+    @properties[-1]
+  end
 
   # define tag methods to delegate to selector_eval
   methods =  Tags::HTML_TAGS.map do |tag|
-    "def #{tag}(&block); selector_eval(@selector.first, '#{tag}', &block);end\n"
+    <<-METHOD
+    def #{tag}(&block)
+      selector_eval('#{tag}', &block)
+    end
+    METHOD
   end.join
 
   module_eval methods
-
   
   CSS_PROPERTIES.each do |method_name|
     define_method method_name do |*args|
@@ -81,42 +121,42 @@ class Selector
     end
   end
   
-  def selector_eval(*args)
-    selector = args.compact.join(" ")
+  
+  def selector_eval(sel)
     if block_given?
-      @selector.unshift selector
-      @properties = []
-      @casuist.data << [@selector.first, @properties]
+      processing(sel)
       yield
-      @selector.shift
+      rest
     else
-      @selector.unshift selector
+      chaining(sel)
+    end
+    self
+  end
+  
+  def method_missing(name, &block)
+    sel = selectify(name)
+    if block_given?
+      processing(sel)
+      yield
+      rest
+    else
+      chaining(sel)
     end
     self
   end
   
   def property(css_attr, *args)
-    @properties << "#{css_attr}: #{args.join(' ')};"
+    current_properties << "#{css_attr}: #{args.join(' ')};"
   end
+  
+
+  
   
   def selectify(method_name)
     matches = method_name.to_s.match( /([\w_]+)!$/)
     matches ? "##{matches[1]}" : ".#{method_name}"
   end
-  
-  def method_missing(name, &block)
-    selector = selectify(name)
-    if block_given?
-      @selector[0] = [@selector.first, selector].compact.join(" ")
-      @properties = []
-      @casuist.data << [@selector.first, @properties]
-      yield
-      @selector.shift
-    else
-      @selector.unshift [@selector.first, selector].compact.join(" ")
-    end
-    self
-  end
+
   
 end
 
