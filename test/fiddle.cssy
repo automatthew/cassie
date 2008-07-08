@@ -1,29 +1,33 @@
-favorite = 'green'
+# favorite = 'green'
 
 ul do
   
   background('red')
+  # 
+  # li do
+  #   color('green')
+  # end
   
   li.ugly do
-    color(favorite)
+    color('aqua')
   end
   
   smurf.house do
     height('256px')
   end
-  
-  asrael! do
-    padding("10px")
-  end
-  
-  width('134px')
+  # 
+  # asrael! do
+  #   padding("10px")
+  # end
+  # 
+  # width('134px')
   
 end
 
-gargamel do
-  margin("0px")
-end
-
-outer.middle.inner do
-  top("34px")
-end
+# gargamel do
+#   margin("0px")
+# end
+# 
+# outer.middle.inner do
+#   top("34px")
+# end

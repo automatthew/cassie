@@ -1,58 +1,40 @@
-/* reset.css */
-@import url( /stylesheets/main.css );
-@import url( /stylesheets/products.css );
-
-#intro_text a.back {
-	padding: 0 0 2px 25px;
-	font-weight: bold;
-	background: url("/images/icons-back.gif") 0 0 no-repeat;
-}
-div.wizard { margin-right: 8px; float: left; }
-
-form ul.properties { display: block; margin: 0; padding: 0; clear: both; }
-li.property { display: block; list-style-type: none; clear: both; padding-bottom: 40px; }
 #content form ul.properties li.property hr { display: block; clear: left; float: none; height: 0; visibility: hidden; margin: -0.66em; padding: 0; }
-form label { float: left; display: block; width: 80px; text-align: right; padding-right: 14px; color: gray; font-weight: bold; font-size: 13px; }
-form div.value { float: left; color: gray; }
-div.radio div.option, div.checkbox div.option { cursor: pointer; }
-li.size div.option { background: url( /images/bt_radio_off.gif) no-repeat; padding-left: 17px; height: 21px; font-size: 13px; }
-li.size div.option.selected { background: url( /images/bt_radio_on.gif) no-repeat; padding-left: 17px; height: 21px; font-size: 13px; }
-li.style div.option { float: left; border: 1px solid silver; padding: 1px; margin-left: 4px; opacity: 0.5; }
-li.style div.option.hover, li.style div.option.selected { border: 1px solid gray; }
-li.style div.option.selected { opacity: 1.0; }
-li.tos div.option { background: url( /images/checkbox.gif ) no-repeat; padding-left: 17px; }
-li.code.property { display: none; }
-div.text.value { margin-top: -4px; }
-div.text.value input { height: 23px; width: 220px; border: none; background: url( /images/textfield_bg.gif) no-repeat;
-	padding: 4px; font-size: 11px; font-weight: bold; color: gray;   }
-div.text.value textarea { width: 280px; height: 184px; font-size: 11px; color: gray; }
-div.preview { float: left ; height: 400px; }
-div.preview iframe { border: none; display: block; position: relative; width: 490px; height: 340px; border: 1px solid silver; margin: 4px; padding: 30px 0;  }
+
+#intro_text a.back{padding:0 0 2px 25px;font-weight:bold;background:url("/images/icons-back.gif") 0 0 no-repeat;}
+
 
 div.ac_results { border: 1px solid silver; text-align: left; background-color: white; color: gray; padding: 5px; margin-top: -8px;  }
 
+div.preview { float: left ; height: 400px; }
+div.preview iframe { border: none; display: block; position: relative; width: 490px; height: 340px; border: 1px solid silver; margin: 4px; padding: 30px 0;  }
+
+div.radio div.option, div.checkbox div.option { cursor: pointer; }
+
+div.tab-selector span{color:gray;font-size:11px;text-align:center;display:block;float:left;height:26px;width:129px;padding:12px 8px 0px 8px;background:url( /images/tab/unselected.gif ) repeat-x;cursor:pointer;}
+div.tab-selector span.selected{font-weight:bold;color:black;background:url( /images/tab/selected.gif ) repeat-x;}
+
+div.text.value { margin-top: -4px; }
+div.text.value input { height: 23px; width: 220px; border: none; background: url( /images/textfield_bg.gif) no-repeat;padding: 4px; font-size: 11px; font-weight: bold; color: gray;   }
+div.text.value textarea { width: 280px; height: 184px; font-size: 11px; color: gray; }
+
+div.wizard { margin-right: 8px; float: left; }
+form div.value { float: left; color: gray; }
+form label { float: left; display: block; width: 80px; text-align: right; padding-right: 14px; color: gray; font-weight: bold; font-size: 13px; }
+form ul.properties { display: block; margin: 0; padding: 0; clear: both; }
 img.title { padding-bottom: 8px; }
 
+li.property { display: block; list-style-type: none; clear: both; padding-bottom: 40px; }
+li.code.property { display: none; }
+
+li.size div.option { background: url( /images/bt_radio_off.gif) no-repeat; padding-left: 17px; height: 21px; font-size: 13px; }
+li.size div.option.selected { background: url( /images/bt_radio_on.gif) no-repeat; padding-left: 17px; height: 21px; font-size: 13px; }
+
+li.style div.option { float: left; border: 1px solid silver; padding: 1px; margin-left: 4px; opacity: 0.5; }
+li.style div.option.hover, li.style div.option.selected { border: 1px solid gray; }
+li.style div.option.selected { opacity: 1.0; }
+
+li.tos div.option { background: url( /images/checkbox.gif ) no-repeat; padding-left: 17px; }
+
 ul.steps { display: block; margin: 0; padding: 0; clear: both; }
-
-ul.steps li.step { 
-	display: none; width: 403px; height: 335px;
-	margin-left: 2px; padding: 16px;
-	list-style-type: none; 
-	border: 1px solid silver; 
-}
-u.steps li.step.selected { display: block; }
-
-div.tab-selector span { 
-	color: gray;
-	font-size: 11px; text-align: center;
-	display: block; float: left; height: 26px; width: 129px; padding: 12px 8px 0px 8px; 
-	background: url( /images/tab/unselected.gif ) repeat-x; cursor: pointer;
-}
-
-div.tab-selector span.selected { 
-	/* border-right: 1px solid gray; border-left: 1px solid gray; border-top: 1px solid silver; */
-	font-weight: bold; color: black;
-	background: url( /images/tab/selected.gif ) repeat-x;
-}
-
+ul.steps li.step{display:none;width:403px;height:335px;margin-left:2px;padding:16px;list-style-type:none;border:1px solid silver;}
+ul.steps li.step.selected { display: block; }

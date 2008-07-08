@@ -81,7 +81,7 @@ module Tags
 
     # define tag methods to delegate to selector_eval
     methods =  HTML_TAGS.map do |tag|
-      "def #{tag}(&block); selector_eval(@selector, '#{tag}', &block);end\n"
+      "def #{tag}(&block); selector_eval(@selector.first, '#{tag}', &block);end\n"
     end.join
 
     module_eval methods
