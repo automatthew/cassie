@@ -1,0 +1,25 @@
+ul
+{
+  background: red;
+  width: 134px;
+}
+ul li .ugly
+{
+  color: green;
+}
+ul .smurf .house
+{
+  height: 256px;
+}
+ul #asrael
+{
+  padding: 10px;
+}
+.gargamel
+{
+  margin: 0px;
+}
+.outer .middle .inner
+{
+  top: 34px;
+}
