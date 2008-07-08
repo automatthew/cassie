@@ -1,6 +1,6 @@
 # favorite = 'green'
 
-ul do
+selector('ul') do
   
   background('red')
   
@@ -8,15 +8,15 @@ ul do
     color('green')
   end
   
-  p.ugly do
+  selector('p.ugly') do
     color('aqua')
   end
   
-  smurf.house do
+  selector('.smurf').house do
     height('256px')
   end
   
-  asrael! do
+  selector('#asrael') do
     padding("10px")
   end
   
@@ -28,6 +28,6 @@ gargamel do
   margin("0px")
 end
 
-outer.middle.inner do
+selector('.outer.middle.inner') do
   top("34px")
 end

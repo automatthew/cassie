@@ -10,12 +10,12 @@ class Casuistry
     self.new.process(*args,&block)
   end
       
-  def initialize(selector=nil)
+  def initialize(sel=nil)
     @data = []
-    @selectors = [ selector]
+    @selectors = [ sel]
     @properties = []
     
-    # possible states are :closed_block, :chaining, :open_block
+    # possible states are :closed_block, :chain, :open_block
     @state = :closed_block
   end
   
@@ -30,9 +30,9 @@ class Casuistry
   
   def output
     output = ""
-    @data.each do |selector|
-      output << selector.first
-      properties = selector.last.map { |s| "  #{s}" }.join("\n")
+    @data.each do |sel|
+      output << sel.first
+      properties = sel.last.map { |s| "  #{s}" }.join("\n")
       output << "\n{\n#{properties}\n}\n"
     end
     output
@@ -45,27 +45,28 @@ class Casuistry
         combined_selector = [current_selector, new_selector].compact.join(" ")
         @selectors.push combined_selector
         new_property_set
-      when :chaining
-        # puts current_selector, new_selector
+      when :chain
         @selectors[-1] = "#{current_selector}#{new_selector}"
         new_property_set
       else
         raise "You can't get to :open_block from #{@state.inspect}"
       end
+      
       @state = :open_block
     end
 
-    def chaining(new_selector)
+    def chain(new_selector)
       case @state
       when :closed_block, :open_block
         combined_selector = [current_selector, new_selector].compact.join(" ")
         @selectors.push( combined_selector)
-      when :chaining
+      when :chain
         @selectors[-1] = "#{current_selector}#{new_selector}"
       else
-        raise "You can't get to :chaining from #{@state.inspect}"
+        raise "You can't get to :chain from #{@state.inspect}"
       end
-      @state = :chaining
+      
+      @state = :chain
     end
 
     def closed_block
@@ -76,19 +77,20 @@ class Casuistry
       else
         raise "You can't get to :closed_block from #{@state.inspect}"
       end
+      
       @state = :closed_block
     end
 
 
   # normal methods
 
-    def selector_eval(sel)
+    def selector(sel)
       if block_given?
         open_block(sel)
         yield
         closed_block
       else
-        chaining(sel)
+        chain(sel)
       end
       self
     end
@@ -100,7 +102,7 @@ class Casuistry
         yield
         closed_block
       else
-        chaining(sel)
+        chain(sel)
       end
       self
     end
@@ -118,11 +120,11 @@ class Casuistry
       @data << [current_selector, current_properties ]
     end
 
-    # define tag methods to delegate to selector_eval
+    # define tag methods to delegate to selector
     methods =  Tags::HTML_TAGS.map do |tag|
       <<-METHOD
       def #{tag}(&block)
-        selector_eval('#{tag}', &block)
+        selector('#{tag}', &block)
       end
       METHOD
     end.join
