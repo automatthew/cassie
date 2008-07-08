@@ -15,6 +15,7 @@ class Casuistry
   def initialize(selector=nil)
     @selector = selector
     @data = []
+    
   end
   
   def process(*args, &block)
@@ -44,56 +45,77 @@ class Selector
     @selectors = [ base_selector ]
     @properties = []
     @casuist = casuist
-    # possible states are :rest, :chaining, :processing
-    @state = :rest
+    # possible states are :closed_block, :chaining, :open_block
+    @state = :closed_block
   end
   
   
   # transitions
-  def processing(new_selector)
+  def open_block(new_selector)
     case @state
-    when :rest
+    when :closed_block, :open_block
       combined_selector = [current_selector, new_selector].compact.join(" ")
       @selectors.push combined_selector
-      @properties.push []
-      @casuist.data << [current_selector, current_properties ]
-      puts @state = :processing
+      open_properties
     when :chaining
-      current_selector = "#{current_selector}#{new_selector}"
-      @properties.push []
-      @casuist.data << [current_selector, current_properties ]
-      puts @state = :processing
+      # puts current_selector, new_selector
+      @selectors[-1] = "#{current_selector}#{new_selector}"
+      open_properties
     else
-      raise "You can't get to :processing from #{@state.inspect}"
+      raise "You can't get to :open_block from #{@state.inspect}"
     end
+    @state = :open_block
   end
   
   def chaining(new_selector)
     case @state
-    when :rest
+    when :closed_block, :open_block
       combined_selector = [current_selector, new_selector].compact.join(" ")
-      @selectors.push combined_selector
-      puts @state = :chaining
+      @selectors.push( combined_selector)
     when :chaining
-      current_selector = "#{current_selector}#{new_selector}"
+      @selectors[-1] = "#{current_selector}#{new_selector}"
     else
       raise "You can't get to :chaining from #{@state.inspect}"
     end
+    @state = :chaining
   end
   
-  def rest
+  def closed_block
     case @state
-    when :processing
+    when :open_block, :closed_block
       @selectors.pop
       @properties.pop
-      puts @state = :rest
     else
-      raise "You can't get to :rest from #{@state.inspect}"
+      raise "You can't get to :closed_block from #{@state.inspect}"
     end
+    @state = :closed_block
   end
   
   
 # methods
+  
+  def selector_eval(sel)
+    if block_given?
+      open_block(sel)
+      yield
+      closed_block
+    else
+      chaining(sel)
+    end
+    self
+  end
+  
+  def method_missing(name, &block)
+    sel = selectify(name)
+    if block_given?
+      open_block(sel)
+      yield
+      closed_block
+    else
+      chaining(sel)
+    end
+    self
+  end
 
   def current_selector
       @selectors[-1]
@@ -101,6 +123,11 @@ class Selector
   
   def current_properties
     @properties[-1]
+  end
+  
+  def open_properties
+    @properties.push []
+    @casuist.data << [current_selector, current_properties ]
   end
 
   # define tag methods to delegate to selector_eval
@@ -121,29 +148,7 @@ class Selector
     end
   end
   
-  
-  def selector_eval(sel)
-    if block_given?
-      processing(sel)
-      yield
-      rest
-    else
-      chaining(sel)
-    end
-    self
-  end
-  
-  def method_missing(name, &block)
-    sel = selectify(name)
-    if block_given?
-      processing(sel)
-      yield
-      rest
-    else
-      chaining(sel)
-    end
-    self
-  end
+
   
   def property(css_attr, *args)
     current_properties << "#{css_attr}: #{args.join(' ')};"

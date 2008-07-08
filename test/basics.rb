@@ -3,30 +3,6 @@ require "#{here}/helper"
 
 describe "Casuistry" do
   
-  before do    
-
-    @fiddle = [
-      ["ul", ["background: red;"]],
-      ["ul li", ["color: green;"]],
-      ["ul p.ugly", ["color: aqua;"]],
-      ["ul .smurf.house", ["height: 256px;"]],
-      ["ul #asrael", ["padding: 10px;"]],
-      [".gargamel", ["margin: 0px;"]],
-      [".outer .middle .inner", ["top: 34px;"]]
-    ]
-    
-    @xdata3 = [
-      ["ul", ["background: red;"]], 
-      ["ul li .ugly", ["color: green;"]],
-      ["ul .smurf .house", ["height: 256px;"]],
-      ["ul #asrael", ["padding: 10px;"]],
-      [".gargamel", ["margin: 0px;"]],
-      [".outer .middle .inner", ["top: 34px;"]]
-    ]
-
-  end
-
-
   it "can nest blocks" do
     proc = lambda do
       div do
@@ -72,7 +48,7 @@ describe "Casuistry" do
     ]
     Cssy.process(&proc).should == data
   end
-
+  
   it "can chain and nest" do
     proc = lambda do
       ul.monkey do
@@ -110,11 +86,20 @@ describe "Casuistry" do
   end
 
 
-  # it "processes strings" do
-  #   c = Cssy.process(File.read( "#{here}/fiddle.cssy"))
-  #   c.should == @fiddle
-  #   # c.output.should == File.read( "#{here}/fiddle.css")
-  # end
+  it "processes strings" do
+    fiddle = [
+      ["ul", ["background: red;"]],
+      ["ul li", ["color: green;"]],
+      ["ul p.ugly", ["color: aqua;"]],
+      ["ul .smurf.house", ["height: 256px;"]],
+      ["ul #asrael", ["padding: 10px;"]],
+      [".gargamel", ["margin: 0px;"]],
+      [".outer.middle.inner", ["top: 34px;"]]
+    ]
+    c = Cssy.process(File.read( "#{here}/fiddle.cssy"))
+    c.should == fiddle
+    # c.output.should == File.read( "#{here}/fiddle.css")
+  end
   
   
   
