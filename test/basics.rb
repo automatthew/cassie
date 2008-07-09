@@ -88,16 +88,17 @@ describe "Casuistry" do
 
   it "processes strings" do
     fiddle = [
-      ["ul", ["background: red;"]],
-      ["ul li", ["color: green;"]],
-      ["ul p.ugly", ["color: aqua;"]],
-      ["ul .smurf.house", ["height: 256px;"]],
-      ["ul #asrael", ["padding: 10px;"]],
+      ["div", ["background: red;", "width: 9934px;"]],
+      ["div ul li", ["color: green;"]],
+      ["div p.ugly.truly", ["color: aqua;"]],
+      ["div .smurf.house", ["height: 256px;"]],
+      ["div #menu", ["padding: 10px;"]],
       [".gargamel", ["margin: 0px;"]],
       [".outer.middle.inner", ["top: 34px;"]]
     ]
-    c = Cssy.process(File.read( "#{here}/fiddle.cssy"))
-    c.should == fiddle
+    c = Cssy.new
+    c.process(File.read( "#{here}/fiddle.cssy"))
+    c.data.should == fiddle
     # c.output.should == File.read( "#{here}/fiddle.css")
   end
   

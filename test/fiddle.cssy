@@ -1,14 +1,14 @@
-# favorite = 'green'
 
-selector('ul') do
+div do
   
-  background('red')
+  # this is a property on div
+  background :red
   
-  li do
+  selector('ul li') do
     color('green')
   end
   
-  selector('p.ugly') do
+  p.ugly.truly do
     color('aqua')
   end
   
@@ -16,11 +16,12 @@ selector('ul') do
     height('256px')
   end
   
-  selector('#asrael') do
+  menu! do
     padding("10px")
   end
   
-  # width('9934px')
+  # this is a property on div, again
+  width('9934px')
   
 end
 

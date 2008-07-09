@@ -6,7 +6,8 @@ Manifest
 README.rdoc
 test/basics.rb
 test/dan.css
-test/experiment.cssy
+test/dan.cssy
+test/fiddle.css
 test/fiddle.cssy
 test/helper.rb
 test/nesting.cssy

@@ -1,21 +1,45 @@
-A CSS companion to Markaby.  Would be nice if you could interpolate variables.
+= Casuistry, a.k.a Cssy
 
-  css = Casuistry.new
-  css.instance_eval do
-    my_favorite_color = :green
-    ul do
-      background('red')
-      li.ugly do
-        color(my_favorite_color)
+Cssy is a CSS companion to Markaby.  You declare selectors using methods named after the type selectors (i.e. tags) or after the class and id selectors of your choice, which are handled by method_missing.  As in Markaby, id selectors are distinguished from class selectors by the "!" at the end of the method name.  You can chain class/id selectors onto type selectors and each other.
+
+Because in CSS you don't have to begin with a type selector, starting a selector chain with a class/id selector is currently allowed in Casuistry.  This may go away in the future.
+
+== Usage
+
+
+  css = Cssy.new
+  css.process do
+    div do
+
+      # this is a property on div
+      background :red
+
+      selector('ul li') do
+        color('green')
       end
-      smurf.house do
+
+      p.ugly.truly do
+        color('aqua')
+      end
+
+      selector('.smurf').house do
         height('256px')
       end
-      asrael! do
+
+      menu! do
         padding("10px")
       end
+
+      # this is a property on div, again
+      width('9934px')
+
     end
-    outer.middle.inner do
+
+    gargamel do
+      margin("0px")
+    end
+
+    selector('.outer.middle.inner') do
       top("34px")
     end
   end

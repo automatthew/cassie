@@ -1,4 +1,4 @@
-module Tags
+class Casuistry
   HTML_TAGS = [
   :a,
   :abbr,

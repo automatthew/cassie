@@ -121,7 +121,7 @@ class Casuistry
     end
 
     # define tag methods to delegate to selector
-    methods =  Tags::HTML_TAGS.map do |tag|
+    methods =  HTML_TAGS.map do |tag|
       <<-METHOD
       def #{tag}(&block)
         selector('#{tag}', &block)
