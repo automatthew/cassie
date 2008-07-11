@@ -99,7 +99,7 @@ describe "Casuistry" do
     c = Cssy.new
     c.process(File.read( "#{here}/fiddle.cssy"))
     c.data.should == fiddle
-    # c.output.should == File.read( "#{here}/fiddle.css")
+    c.output.should == File.read( "#{here}/fiddle.css")
   end
   
   
