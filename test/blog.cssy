@@ -1,0 +1,99 @@
+blog! {
+  padding_top "1.5em"
+  
+  a {
+    color "#057"
+    text_decoration :none
+    font_weight :bold
+  }
+  
+  selector('h3 a') {
+    color :black
+  }
+  
+  selector('h4 a') {
+    color :black
+  }
+  
+  h2 {
+    font_size "2em"
+    line_height ".75em"
+    margin_bottom "1.5em"
+    
+    a {
+      color :black 
+    }
+  }
+  
+  selector('tags a') {
+    text_decoration :underline
+    font_weight :normal
+    padding  "0px", "2px"
+  }
+}
+
+
+selector('#tags a') {
+  font_weight :normal
+  padding "0px", "1px"
+  text_decoration :underline
+}
+
+
+hr {
+  margin_bottom "3em"
+}
+
+recent {
+  padding_bottom "1.5em"
+  h4 {
+    margin_bottom "0em"
+  }
+}
+
+div.sidebar! {
+  
+  div {
+    margin_bottom "1.5em"
+    # background "#eee"
+  }
+  
+}
+
+entry {
+  margin_bottom "3em"
+  
+  h3 {
+    margin_bottom "0em"
+    margin_right "1em"
+  }
+  
+  h4 {
+    display :inline
+    font_weight :bold
+    margin_top "1px"
+    margin_bottom "0px"
+  }
+  
+  meta {
+    text_align :right
+  }
+  
+  images {
+    float :left
+    margin_right "1.5em"
+    width "95px"
+  }
+  
+  selector(".image img") {
+    width "99%"
+  }
+  
+  body {
+    clear :left
+  }
+  
+  tags {
+    margin_bottom "1.5em"
+  }
+}
