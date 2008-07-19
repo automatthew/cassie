@@ -8,6 +8,10 @@ class Casuistry
   background_position
   background_repeat
   border
+  border_left
+  border_top
+  border_right
+  border_bottom
   border_collapse
   border_color
   border_spacing
