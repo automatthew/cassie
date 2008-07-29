@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matthew King"]
-  s.date = %q{2008-07-19}
+  s.date = %q{2008-07-29}
   s.description = %q{Generates CSS using Ruby, like Markaby}
   s.email = %q{automatthew@gmail.com}
   s.extra_rdoc_files = ["lib/casuistry.rb", "lib/properties.rb", "lib/tags.rb", "README.rdoc"]
