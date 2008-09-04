@@ -9,31 +9,31 @@ Because in CSS you don't have to begin with a type selector, starting a selector
 
   css = Cssy.new
   css.process do
-    div do
-
+  
+    div {
+    
       # this is a property on div
       background :red
 
-      selector('ul li') do
-        color('green')
-      end
+      selector('ul li') {
+        color :green
+      }
 
-      p.ugly.truly do
-        color('aqua')
-      end
+      p.ugly.truly {
+        color :aqua
+      }
 
-      selector('.smurf').house do
-        height('256px')
-      end
+      selector('.smurf').house {
+        height '256px'
+      }
 
-      menu! do
-        padding("10px")
-      end
+      menu! {
+        padding "10px"
+      }
 
       # this is a property on div, again
-      width('9934px')
-
-    end
+      width '9934px' 
+    }
 
     gargamel do
       margin("0px")
