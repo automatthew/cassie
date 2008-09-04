@@ -1,0 +1,26 @@
+Casuistry
+
+WHAT
+  Casuistry is to CSS as Markaby is to XHTML: a tool for generating CSS using pure Ruby.  Style declarations in Casuistry are made in Ruby code, as opposed to a parsed DSL.  Casuistry lets you use variables and define helper methods to simplify the development of stylesheets.
+
+WHY
+  CSS does not have variables.  CSS does not have selector nesting.  CSS is not Turing-complete.  Search-and-replace is not good enough.  
+
+How
+
+  Similarly to Markaby, methods representing tag, class, or id selectors take blocks, and you define your CSS properties inside the blocks.  Nested blocks indicate child selectors.
+
+WHEN
+  Casuistry's last release was on July 29, 2008.
+  Casuistry was last updated on July 29, 2008.
+
+WHERE
+  Stable
+
+  Edge:
+  http://github.com/automatthew/casuistry/tree/master
+  git clone git://github.com/automatthew/casuistry.git
+  
+
+WHO
+  Matthew King

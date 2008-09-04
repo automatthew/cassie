@@ -1,0 +1,22 @@
+require 'syntax/convertors/html'
+convertor = Syntax::Convertors::HTML.for_syntax "ruby"
+
+html do 
+  head do
+    title "Casuistry: A CSS generator with a pure-Ruby syntax"
+    link :rel => 'stylesheet', :type => 'text/css', :href => "basic.css"
+    link :rel => 'stylesheet', :type => 'text/css', :href => "ruby.css"
+  end
+  body do
+    div.content! do
+      img.logo! :src => "cssy_title.jpg"
+      div.ruby.example! do
+        convertor.convert( File.read( "site/basic.rb" ) ).to_s
+      end
+      ul do
+        li { a "RDocs", :href => "/rdoc" }
+        li { a "Developer", :href => "http://www.automatthew.com" }
+      end
+    end
+  end
+end
