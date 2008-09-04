@@ -1,5 +1,9 @@
 selector(".ruby") {
   
+  margin "30px 57px"
+  padding_left "20px"
+  border_left "3px solid #e8e7e1"
+  
   selector(".comment") { color "#005"; font_style :italic; }
   
   selector(".keyword") { color "#6D80A8"; font_weight :bold; }
