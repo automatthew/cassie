@@ -3,7 +3,10 @@ require 'tags'
 
 # Markaby-ish way to declare CSS
 class Casuistry
-    
+  
+  METHODS = %w( class instance_eval send __send__ __id__ )
+  instance_methods.each { |m| undef_method( m ) unless METHODS.include? m }
+  
   attr_reader :data
   
   def initialize(sel=nil)

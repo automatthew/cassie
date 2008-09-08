@@ -68,6 +68,8 @@ rule '.html' => [ '.mab' ] do |t|
   mab(t.source, t.name)
 end
 
+file 'site/index.html' => [ 'site/basic.rb' ]
+
 rule '.css' => [ '.cssy' ] do |t|
   cssify(t.source, t.name)
 end

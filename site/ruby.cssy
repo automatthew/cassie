@@ -1,26 +1,15 @@
-selector(".ruby") {
-  
+div.ruby {
   margin "30px 57px"
   padding_left "20px"
   border_left "3px solid #e8e7e1"
   
-  selector(".comment") { color "#005"; font_style :italic; }
-  
-  selector(".keyword") { color "#6D80A8"; font_weight :bold; }
-  selector(".method") { color "#077"; }
-  selector(".class") { color "#074"; }
-  selector(".module") { color "#050"; }
-  selector(".punct") { color "#447"; font_weight :bold; }
-  selector(".symbol") { color "#F82A15"; }
-  selector(".string") { color "#006633"; }
-  selector(".char") { color "#F07"; }
-  selector(".ident") { color "#09090C"; }
-  selector(".constant") { color "#349"; }
-  selector(".regex") { color "#B66"; background "#FEF"; }
-  selector(".number") { color "#F99"; }
-  selector(".attribute") { color "#7BB"; }
-  selector(".global") { color "#7FB"; }
-  selector(".expr") { color "#227"; }
-  selector(".escape") { color "#277"; }
-  
+  comment { color "#5A525F"; font_style :italic }
+  keyword { color "#794938" }
+  attribute { color "#234A97" }
+  constant { color "#691C97"; font_weight :bold }
+  method { color "#BF4F24" }
+  symbol { color "#811F24" }
+  string { color "#0B6125" }
+  ident { color "#080808" }
+  punct { color "#080808" }
 }

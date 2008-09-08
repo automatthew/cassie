@@ -13,7 +13,7 @@ html do
       div.ruby.example! do
         convertor.convert( File.read( "site/basic.rb" ) ).to_s
       end
-      ul do
+      ul.links! do
         li { a "RDocs", :href => "/rdoc" }
         li { a "Developer", :href => "http://www.automatthew.com" }
       end
