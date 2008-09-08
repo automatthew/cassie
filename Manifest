@@ -8,13 +8,11 @@ misc/meyer_reset.css
 README.rdoc
 site/basic.cssy
 site/basic.rb
-site/content.txt
 site/cssy_title.jpg
 site/flower.png
 site/index.mab
 site/ruby.cssy
 test/basics.rb
-test/benchmark_for_fun.rb
 test/dan.cssy
 test/fiddle.css
 test/fiddle.cssy
