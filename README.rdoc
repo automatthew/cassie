@@ -1,48 +1,29 @@
 = Cassandra, a.k.a Cssy
 
-Cssy is a CSS companion to Markaby.  You declare selectors using methods named after the type selectors (i.e. tags) or after the class and id selectors of your choice, which are handled by method_missing.  As in Markaby, id selectors are distinguished from class selectors by the "!" at the end of the method name.  You can chain class/id selectors onto type selectors and each other.
+Cassandra is a CSS companion to Markaby.  You declare selectors using methods named after the type selectors (i.e. tags) or after the class and id selectors of your choice, which are handled by method_missing.  As in Markaby, id selectors are distinguished from class selectors by the "!" at the end of the method name.  You can chain class/id selectors onto type selectors and each other.
 
 Because in CSS you don't have to begin with a type selector, starting a selector chain with a class/id selector is currently allowed in Cassandra.  This may go away in the future.
 
 == Usage
 
 
-  css = Cssy.new
-  css.process do
-  
-    div {
-    
-      # this is a property on div
-      background :red
+  @css = Cssy.new
+  @css.process do
 
-      selector('ul li') {
-        color :green
+    body { background_color "#F8F7F1"}
+    div.content! { 
+      width "700px"; margin "25px auto"
+
+      a { 
+        color "#212F54";
+        text_decoration :none
+        font_weight :bold
       }
 
-      p.ugly.truly {
-        color :aqua
-      }
-
-      selector('.smurf').house {
-        height '256px'
-      }
-
-      menu! {
-        padding "10px"
-      }
-
-      # this is a property on div, again
-      width '9934px' 
+      ul.links! { list_style "url(flower.png)"  }
     }
 
-    gargamel do
-      margin("0px")
-    end
-
-    selector('.outer.middle.inner') do
-      top("34px")
-    end
   end
   
-  css.data    #=> array of arrays
-  css.output  #=> string of css
+  @css.data    #=> array of arrays
+  @css.to_s
