@@ -19,7 +19,7 @@ describe "Cassandra" do
       ["div ul", []],
       ["div ul li", ["background: red;"]]
     ]
-    Cssy.process(&proc).should == data
+    Cssy.process(&proc).data.should == data
   end
   
   it "can chain blocks" do
@@ -32,7 +32,7 @@ describe "Cassandra" do
       ["p.smurf", [ "color: blue;"]],
       ["p.gnome.hat", ["color: red;"]]
     ]
-    Cssy.process(&proc).should == data
+    Cssy.process(&proc).data.should == data
   end
   
   it "can nest and chain" do
@@ -46,7 +46,7 @@ describe "Cassandra" do
       ["div", []],
       ["div span.ugly", ["font-family: Arial;"]]
     ]
-    Cssy.process(&proc).should == data
+    Cssy.process(&proc).data.should == data
   end
   
   it "can chain and nest" do
@@ -60,7 +60,7 @@ describe "Cassandra" do
       ["ul.monkey", []],
       ["ul.monkey li", ["list-style: none;"]]
     ]
-    Cssy.process(&proc).should == data
+    Cssy.process(&proc).data.should == data
   end
   
   it "can chain and nest and chain and ..." do
@@ -82,7 +82,7 @@ describe "Cassandra" do
       ["div div#milk.toast hr", ["background: green;"]],
       ["div p", ["border: none;"]]
     ]
-    Cssy.process(&proc).should == data
+    Cssy.process(&proc).data.should == data
   end
 
 
@@ -99,7 +99,7 @@ describe "Cassandra" do
     c = Cssy.new
     c.process(File.read( "#{here}/fiddle.cssy"))
     c.data.should == fiddle
-    c.output.should == File.read( "#{here}/fiddle.css")
+    c.to_s.should == File.read( "#{here}/fiddle.css")
   end
   
   

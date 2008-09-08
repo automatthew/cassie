@@ -1,4 +1,5 @@
-@css = Cssy.new; @css.process do
+@css = Cssy.new
+@css.process do
 
   body { background_color "#F8F7F1"}
   div.content! { 
@@ -15,4 +16,4 @@
   
 end
 
-@css.output
+@css.to_s

@@ -29,13 +29,13 @@ class Cassandra
     else
       instance_eval(args.join("\n"))
     end
-    @data
+    self
   end
   
-  def output
+  def to_s
     @data.map do |sel|
       properties = sel.last.join("\n  ")
-      "#{sel.first}\n{\n  #{properties}\n}\n"
+      "#{sel.first} {\n  #{properties}\n}\n"
     end.join
   end
 

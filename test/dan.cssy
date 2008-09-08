@@ -1,160 +1,160 @@
-# within a class
-
-class Widget
-
-  # need this to get stylesheet methods
-  include Cassandra
-  
-  # add in Grid Layout support
-  include Cassandra::Grid
-  
-  # changes default units to 10 x 10 pixel blocks
-  grid :columns => { :width => 10, :height => 10 }, :units => 'px'
-  
-  # define some reusable stuff
-  def block ; display :block ; margin 0 ; padding 0 ; end
-  def wrap ; clear :both ; end
-  def left ; float :left ; end
-  def dark ; color :gray ; end
-  def style light ; color :silver ; end
-  def large ; font :size => '13px' ; end
-  def small ; font :size => '11px' ; end
-
-  # generate a "CSS reset" and include some other stylesheets
-  reset ; include Main ; include Products
-  
-  intro_text! / a.back do
-    padding :top => 0, :left => 0, :bottom => 2, :right => 2
-    font :weight => :bold ; background :url => '/images/icons-back.gif', :repeat => false
-  end
-  
-  img.title { padding :bottom => 1 }
-  
-  div.wizard do
-    
-    left ; margin :right => 1
-
-    ul.steps do
-      
-      block
-      
-      li.step do
-        block ; display false; 
-        width 40 ; height 33.5
-        margin :left => '2px' ; padding 1.5
-        border '1px solid silver'
-        
-        add '.selected' { display :block }
-      
-      end
-    
-    end
-    
-    div.tab-selector span do
-      dark ; small ; centered ; block ; left
-      height 2.5 ; width 13 ; padding '12px 8px 0 8px' ; cursor :pointer
-      background :url => '/images/tab/unselected.gif', :repeat => :x
-      self & selected do 
-        font :weight => :bold ; color :black 
-        background :url => '/images/tab/selected.gif', :repeat => :x      
-      end
-    end
-
-    form do
-
-      ul.properties do
-        
-        block
-        
-        li.property do
-          
-          block ; padding :bottom => 4
-
-          label do
-            block ; left ; dark ; large
-            width 8 ; text_align :right
-            padding :right => 2 ; font :weight => :bold
-          end
-
-          div.value { left ; dark }
-
-          div.radio.value  | div.checkbox.value do
-            div.option do
-              large ; padding :left => 2 ; height 2 ; cursor :pointer
-              background :url => '/images/bt_radio_off.gif', :repeat => false
-            end
-          end
-          
-          div.text.value do
-
-            small ; dark ; margin :top => '-4px' 
-            
-            input do
-              height 2 ; width 22 ; border false; background :url => '/images/textfield_bg.gif', :repeat => false
-              padding 0.5 ; font :weight => :bold
-            end
-            
-            textarea { width 28 ; height 18 }
-
-          end
-
-        end
-        
-       li.size.property do
-          
-          div.option do
-            background :url => '/images/bt_radio_off.gif', :repeat => false
-            padding :left => 2 ; height 2 ; large
-            
-            self & selected do
-              background :url => '/images/bt_radio_on.gif', :repeat => false
-              padding :left => 2 ; height 2 ; large
-            end
-              
-          end
-          
-        end
-        
-        li.style.property do
-          
-          div.option do
-            left ; border '1px solid silver' ; padding '1px' ; margin-left 0.5 ; opacity 0.5
-          end
-          
-          div.option.hover | div.option.selected { border '1px solid gray' }
-          
-          div.option.selected { opacity 1.0 }
-          
-        end
-
-        li.tos.property / div.option
-          background :url => '/images/checkbox.gif', :repeat => false ; padding :left => 2          
-        end
-        
-        li.code.property { display false }
-
-      end
-    
-    end
-    
-  end
-  
-  div.preview do
-    
-    left ; height 40
-    
-    iframe do
-      block ; height 34 ; width 49 ; position :relative 
-      margin 0.5 ; padding :top => 3, :left => 0
-      border '1px solid silver'
-    end
-    
-    div.ac_results do
-      padding 0.5 ; margin :top => 1
-      border '1px solid silver' ; text_align :left ; dark
-      background :color => :white ; 
-    end
-    
-  end
-
-end
+# # within a class
+# 
+# class Widget
+# 
+#   # need this to get stylesheet methods
+#   include Cassandra
+#   
+#   # add in Grid Layout support
+#   include Cassandra::Grid
+#   
+#   # changes default units to 10 x 10 pixel blocks
+#   grid :columns => { :width => 10, :height => 10 }, :units => 'px'
+#   
+#   # define some reusable stuff
+#   def block ; display :block ; margin 0 ; padding 0 ; end
+#   def wrap ; clear :both ; end
+#   def left ; float :left ; end
+#   def dark ; color :gray ; end
+#   def style light ; color :silver ; end
+#   def large ; font :size => '13px' ; end
+#   def small ; font :size => '11px' ; end
+# 
+#   # generate a "CSS reset" and include some other stylesheets
+#   reset ; include Main ; include Products
+#   
+#   intro_text! / a.back do
+#     padding :top => 0, :left => 0, :bottom => 2, :right => 2
+#     font :weight => :bold ; background :url => '/images/icons-back.gif', :repeat => false
+#   end
+#   
+#   img.title { padding :bottom => 1 }
+#   
+#   div.wizard do
+#     
+#     left ; margin :right => 1
+# 
+#     ul.steps do
+#       
+#       block
+#       
+#       li.step do
+#         block ; display false; 
+#         width 40 ; height 33.5
+#         margin :left => '2px' ; padding 1.5
+#         border '1px solid silver'
+#         
+#         add '.selected' { display :block }
+#       
+#       end
+#     
+#     end
+#     
+#     div.tab-selector span do
+#       dark ; small ; centered ; block ; left
+#       height 2.5 ; width 13 ; padding '12px 8px 0 8px' ; cursor :pointer
+#       background :url => '/images/tab/unselected.gif', :repeat => :x
+#       self & selected do 
+#         font :weight => :bold ; color :black 
+#         background :url => '/images/tab/selected.gif', :repeat => :x      
+#       end
+#     end
+# 
+#     form do
+# 
+#       ul.properties do
+#         
+#         block
+#         
+#         li.property do
+#           
+#           block ; padding :bottom => 4
+# 
+#           label do
+#             block ; left ; dark ; large
+#             width 8 ; text_align :right
+#             padding :right => 2 ; font :weight => :bold
+#           end
+# 
+#           div.value { left ; dark }
+# 
+#           div.radio.value  | div.checkbox.value do
+#             div.option do
+#               large ; padding :left => 2 ; height 2 ; cursor :pointer
+#               background :url => '/images/bt_radio_off.gif', :repeat => false
+#             end
+#           end
+#           
+#           div.text.value do
+# 
+#             small ; dark ; margin :top => '-4px' 
+#             
+#             input do
+#               height 2 ; width 22 ; border false; background :url => '/images/textfield_bg.gif', :repeat => false
+#               padding 0.5 ; font :weight => :bold
+#             end
+#             
+#             textarea { width 28 ; height 18 }
+# 
+#           end
+# 
+#         end
+#         
+#        li.size.property do
+#           
+#           div.option do
+#             background :url => '/images/bt_radio_off.gif', :repeat => false
+#             padding :left => 2 ; height 2 ; large
+#             
+#             self & selected do
+#               background :url => '/images/bt_radio_on.gif', :repeat => false
+#               padding :left => 2 ; height 2 ; large
+#             end
+#               
+#           end
+#           
+#         end
+#         
+#         li.style.property do
+#           
+#           div.option do
+#             left ; border '1px solid silver' ; padding '1px' ; margin-left 0.5 ; opacity 0.5
+#           end
+#           
+#           div.option.hover | div.option.selected { border '1px solid gray' }
+#           
+#           div.option.selected { opacity 1.0 }
+#           
+#         end
+# 
+#         li.tos.property / div.option
+#           background :url => '/images/checkbox.gif', :repeat => false ; padding :left => 2          
+#         end
+#         
+#         li.code.property { display false }
+# 
+#       end
+#     
+#     end
+#     
+#   end
+#   
+#   div.preview do
+#     
+#     left ; height 40
+#     
+#     iframe do
+#       block ; height 34 ; width 49 ; position :relative 
+#       margin 0.5 ; padding :top => 3, :left => 0
+#       border '1px solid silver'
+#     end
+#     
+#     div.ac_results do
+#       padding 0.5 ; margin :top => 1
+#       border '1px solid silver' ; text_align :left ; dark
+#       background :color => :white ; 
+#     end
+#     
+#   end
+# 
+# end

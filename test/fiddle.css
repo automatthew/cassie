@@ -1,29 +1,22 @@
-div
-{
+div {
   background: red;
   width: 9934px;
 }
-div ul li
-{
+div ul li {
   color: green;
 }
-div p.ugly.truly
-{
+div p.ugly.truly {
   color: aqua;
 }
-div .smurf.house
-{
+div .smurf.house {
   height: 256px;
 }
-div #menu
-{
+div #menu {
   padding: 10px;
 }
-.gargamel
-{
+.gargamel {
   margin: 0px;
 }
-.outer.middle.inner
-{
+.outer.middle.inner {
   top: 34px;
 }

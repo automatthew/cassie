@@ -36,15 +36,3 @@ Benchmark.bm do |x|
   end
   
 end
-
-result = RubyProf.profile do
-  c = Cssy.new
-  c.process(File.read("#{here}/blog.cssy"))
-  # css = c.output
-end
-
-printer = RubyProf::FlatPrinter.new(result)
-printer.print(STDOUT, 0)
-
-printer = RubyProf::GraphPrinter.new(result)
-printer.print(STDOUT, 0)

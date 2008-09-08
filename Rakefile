@@ -65,7 +65,7 @@ rule '.html' => [ '.mab' ] do |t|
   mab(t.source, t.name)
 end
 
-file 'site/index.html' => [ 'site/basic.rb' ]
+file 'site/index.mab' => [ 'site/basic.rb' ]
 
 rule '.css' => [ '.cssy' ] do |t|
   cssify(t.source, t.name)
@@ -84,10 +84,9 @@ def mab(source, target)
 end
 
 def cssify(source, target)
-  c = Cssy.new
-  c.process(File.read(source))
+  c = Cssy.new.process(File.read(source))
   File.open(target, 'w') do |f|
-    f.puts c.output
+    f.puts c.to_s
   end
 end
 
