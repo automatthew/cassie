@@ -2,7 +2,7 @@ require 'properties'
 require 'tags'
 
 # Markaby-ish way to declare CSS
-class Casuistry
+class Cassandra
   
   METHODS = %w( class instance_eval send __send__ __id__ )
   instance_methods.each { |m| undef_method( m ) unless METHODS.include? m }
@@ -157,4 +157,4 @@ class Casuistry
   
 end
 
-Cssy = Casuistry
+Cssy = Cassy = Cassandra

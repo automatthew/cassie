@@ -1,7 +1,7 @@
 here = File.dirname(__FILE__)
 require "#{here}/helper"
 
-describe "Casuistry" do
+describe "Cassandra" do
   
   it "can nest blocks" do
     proc = lambda do

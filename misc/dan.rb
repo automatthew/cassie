@@ -1,7 +1,7 @@
 # Experimental alternative from Dan Yoder
 
 %w( rubygems functor ).each { |file| require file }
-class CSS
+class CSS # :nodoc:
 
   include Functor::Method
 

@@ -1,4 +1,4 @@
-class Casuistry
+class Cassandra
   CSS_PROPERTIES = %w{ 
   azimuth
   background

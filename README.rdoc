@@ -1,8 +1,8 @@
-= Casuistry, a.k.a Cssy
+= Cassandra, a.k.a Cssy
 
 Cssy is a CSS companion to Markaby.  You declare selectors using methods named after the type selectors (i.e. tags) or after the class and id selectors of your choice, which are handled by method_missing.  As in Markaby, id selectors are distinguished from class selectors by the "!" at the end of the method name.  You can chain class/id selectors onto type selectors and each other.
 
-Because in CSS you don't have to begin with a type selector, starting a selector chain with a class/id selector is currently allowed in Casuistry.  This may go away in the future.
+Because in CSS you don't have to begin with a type selector, starting a selector chain with a class/id selector is currently allowed in Cassandra.  This may go away in the future.
 
 == Usage
 

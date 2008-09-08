@@ -1,4 +1,4 @@
-class Casuistry
+class Cassandra
   HTML_TAGS = [
   :a,
   :abbr,

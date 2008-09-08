@@ -1,5 +1,5 @@
-casuistry.gemspec
-lib/casuistry.rb
+cassandra.gemspec
+lib/cassandra.rb
 lib/properties.rb
 lib/tags.rb
 Manifest

@@ -3,7 +3,7 @@ convertor = Syntax::Convertors::HTML.for_syntax "ruby"
 
 html do 
   head do
-    title "Casuistry: A CSS generator with a pure-Ruby syntax"
+    title "Cassandra: A CSS generator with a pure-Ruby syntax"
     link :rel => 'stylesheet', :type => 'text/css', :href => "basic.css"
     link :rel => 'stylesheet', :type => 'text/css', :href => "ruby.css"
   end

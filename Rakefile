@@ -1,22 +1,19 @@
-%w{rubygems}.each do |dep|
-  require dep
-end
+require 'rubygems'
 
-Version = '0.2.2'
+Version = '0.2.3'
 
-task :default => [:test]
+task :default => [ :test ]
 
 begin
   gem 'echoe', '>=2.7'
   require 'echoe'
-  Echoe.new('casuistry', Version) do |p|
-    p.project = 'casuistry'
+  Echoe.new('cassandra', Version) do |p|
+    p.project = 'cassandra'
     p.summary = "Generates CSS using Ruby, like Markaby"
     p.author = "Matthew King"
     p.email = "automatthew@gmail.com"
     p.ignore_pattern = /^(\.git).+/
     p.test_pattern = "test/*.rb"
-    p.docs_host = "automatthew@rubyforge.org:/var/www/gforge-projects/casuistry/rdoc"
   end
 rescue
   "(ignored echoe gemification, as you don't have the Right Stuff)"
@@ -39,13 +36,13 @@ desc "Publish rdocs to rubyforge"
 task :publish_docs => [ :clean, :docs ] do
   config = YAML.load(File.read(File.expand_path("~/.rubyforge/user-config.yml")))
   pub = Rake::SshDirPublisher.new "#{config["username"]}@rubyforge.org", 
-    "/var/www/gforge-projects/casuistry/rdoc", 
+    "/var/www/gforge-projects/cassandra/rdoc", 
     'doc'
   pub.upload
 end
 
 task :publish_site => [ :compile ] do
-  cmd = "scp -qr site/*.{html,css,jpg,png} automatthew@rubyforge.org:/var/www/gforge-projects/casuistry"
+  cmd = "scp -qr site/*.{html,css,jpg,png} automatthew@rubyforge.org:/var/www/gforge-projects/cassandra"
   puts "Uploading: #{cmd}"
   system(cmd)
 end
@@ -76,7 +73,7 @@ end
   
 require 'markaby'
 $:.unshift "lib"
-require 'casuistry'
+require 'cassandra'
 
 def mab(source, target)
   mab = Markaby::Builder.new

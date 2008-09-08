@@ -3,10 +3,10 @@
 class Widget
 
   # need this to get stylesheet methods
-  include Casuistry
+  include Cassandra
   
   # add in Grid Layout support
-  include Casuistry::Grid
+  include Cassandra::Grid
   
   # changes default units to 10 x 10 pixel blocks
   grid :columns => { :width => 10, :height => 10 }, :units => 'px'
