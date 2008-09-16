@@ -4,7 +4,7 @@ div do
   # this is a property on div
   background :red
   
-  selector('ul li') do
+  s('ul li') do
     color('green')
   end
   
@@ -12,7 +12,7 @@ div do
     color('aqua')
   end
   
-  selector('.smurf').house do
+  s('.smurf').house do
     height('256px')
   end
   
@@ -29,6 +29,6 @@ gargamel do
   margin("0px")
 end
 
-selector('.outer.middle.inner') do
+s('.outer.middle.inner') do
   top("34px")
 end

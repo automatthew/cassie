@@ -1,14 +1,20 @@
 require 'properties'
 require 'tags'
 
-# Markaby-ish way to declare CSS
+# A CSS generator with a Ruby syntax.  You can call her Cssy, for short.
 class Cassandra
   
+  # Clear out unneeded methods
   METHODS = %w( class instance_eval send __send__ __id__ )
   instance_methods.each { |m| undef_method( m ) unless METHODS.include? m }
   
   attr_reader :data
   
+  # Create a new instance of Cssy, optionally with a base selector
+  # 
+  #   css = Cssy.new
+  #   
+  #   header = Cssy.new("div#header")
   def initialize(sel=nil)
     @data = []
     @selectors = [ sel ]
@@ -19,10 +25,21 @@ class Cassandra
     @state = :closed_block
   end
   
+  # Create a new instance and process the supplied block, returning the instance.
+  # 
+  #   css = Cssy.process do
+  #     ul do
+  #       li { list_style :none }
+  #     end
+  #   end
   def self.process(*args,&block)
     self.new.process(*args,&block)
   end
   
+  # Process the supplied block (storing the result internally as an array in @data).  
+  # Returns the Cssy instance.
+  # 
+  # If no block is given, join all arguments with "\n" and eval the result.  Dubious utility.
   def process(*args, &block)
     if block
       instance_eval(&block)
@@ -32,42 +49,51 @@ class Cassandra
     self
   end
   
+  # Output CSS as a string
   def to_s
     @data.map do |sel|
       properties = sel.last.join("\n  ")
       "#{sel.first} {\n  #{properties}\n}\n"
     end.join
   end
-
-
-
-  # Pushes an empty array on the properties stack and registers
-  # that array (against the current selector) in @data
-  def new_property_set
-    @properties.push []
-    @data << [@selectors[-1], @properties[-1] ]
-  end
-
-
+  
   # Declare a CSS selector using a block.  May be chained and nested.
+  # 
+  #   selector "a:visited" do
+  #     color :gray
+  #   end
   def selector(sel)
     if block_given?
-      open_block(sel)
+      open(sel)
       yield
-      closed_block
+      close
     else
       chain(sel)
     end
     self
   end
   
-  # Catch unknown methods and treat them as CSS class or id selectors.
+  alias :s :selector
+  
+  # Add a property declaration for the current selector.
+  # 
+  #   property "margin-bottom", "42px" 
+  #
+  def property(css_attr, *args)
+    @properties[-1] << "#{css_attr}: #{args.join(' ')};"
+  end
+
+  # Catch unknown methods and treat them as CSS class or id selectors.  This may
+  # go away in future releases.
+  # 
+  #   monkey { padding "24px" }
+  # 
   def method_missing(name, &block)
     sel = selectify(name)
     if block_given?
-      open_block(sel)
+      open(sel)
       yield
-      closed_block
+      close
     else
       chain(sel)
     end
@@ -80,6 +106,7 @@ class Cassandra
     matches ? "##{matches[1]}" : ".#{method_name}"
   end
 
+  private
 
   # define tag methods that delegate to selector
   methods =  HTML_TAGS.map do |tag|
@@ -96,18 +123,20 @@ class Cassandra
       css_attr = method_name.gsub('_', '-')
       property(css_attr, args)
     end
-  end
-
-  # Add a property declaration string to the current selector's properties array.
-  def property(css_attr, *args)
-    @properties[-1] << "#{css_attr}: #{args.join(' ')};"
+  end  
+  
+  # Pushes an empty array on the properties stack and registers
+  # that array (against the current selector) in @data
+  def new_property_set
+    @properties.push []
+    @data << [@selectors[-1], @properties[-1] ]
   end
   
   ##  State transitions
   
   # Push the accumulated selector and a new property array onto the
   # tops of their respected stacks
-  def open_block(new_selector)
+  def open(new_selector)
     case @state
     when :closed_block, :open_block
       combined_selector = [@selectors[-1], new_selector].compact.join(" ")
@@ -117,7 +146,7 @@ class Cassandra
       @selectors[-1] = "#{@selectors[-1]}#{new_selector}"
       new_property_set
     else
-      raise "You can't get to :open_block from #{@state.inspect}"
+      raise "#open not available when state is #{@state.inspect}"
     end
     
     @state = :open_block
@@ -128,11 +157,11 @@ class Cassandra
     case @state
     when :closed_block, :open_block
       combined_selector = [@selectors[-1], new_selector].compact.join(" ")
-      @selectors.push( combined_selector)
+      @selectors.push combined_selector
     when :chain
       @selectors[-1] = "#{@selectors[-1]}#{new_selector}"
     else
-      raise "You can't get to :chain from #{@state.inspect}"
+      raise "#chain not available when state is #{@state.inspect}"
     end
     
     @state = :chain
@@ -140,21 +169,17 @@ class Cassandra
 
   # Pop the selector string and property array for the closing block
   # off of their respective stacks
-  def closed_block
+  def close
     case @state
     when :open_block, :closed_block
       @selectors.pop
       @properties.pop
     else
-      raise "You can't get to :closed_block from #{@state.inspect}"
+      raise "#close not available when state is #{@state.inspect}"
     end
     
     @state = :closed_block
   end
-
-
-  
-  
 end
 
 Cssy = Cassy = Cassandra
