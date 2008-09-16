@@ -1,7 +1,45 @@
 require 'properties'
 require 'tags'
 
-# A CSS generator with a Ruby syntax.  You can call her Cssy, for short.
+# Cassandra is a CSS generator that takes Ruby blocks as input.  You can call her Cssy, for short.
+# At her grubbiest, Cssy gives you selector and property methods you can use for direct declarations
+# 
+#   css = Cssy.process do
+#     selector "div#main" do
+#       property "margin-left", "100px"
+#       selector "a" do
+#         property "color", "red"
+#       end
+#     end
+#   end
+# 
+# Cssy cleans up real nice, though:
+# 
+#   css = Cssy.process do
+#     div.main! do
+#       margin_left "100px"
+#       a { color :red }
+#     end
+#   end
+#
+# Chained methods on a selector represent classes and ids (as in Markaby).
+# Note that the "margin-left" property is declared with a method named margin_left.  Hyphens in 
+# property names become underscores in Cssy method names.
+# In property declarations, you can use symbols for CSS keywords (e.g. :red, :none, :absolute, :left).
+# 
+# All the processing takes place in a single Cssy instance, so you can set instance variables and define helper methods, either directly on the instance, or mixed in from a module.
+# 
+#   css.instance_eval do
+#     @fg, @bg = "#333", "#ccc"
+#     def invert
+#       color @bg
+#       background @fg
+#     end
+#   end
+# 
+# Once an instance of Cssy is all loaded up with generating goodness, use to_s to output the CSS.
+
+
 class Cassandra
   
   # Clear out unneeded methods
