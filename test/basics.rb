@@ -87,7 +87,7 @@ describe "Cassandra" do
 
 
   it "processes strings" do
-    fiddle = [
+    basics = [
       ["div", ["background: red;", "width: 9934px;"]],
       ["div ul li", ["color: green;"]],
       ["div p.ugly.truly", ["color: aqua;"]],
@@ -97,9 +97,9 @@ describe "Cassandra" do
       [".outer.middle.inner", ["top: 34px;"]]
     ]
     c = Cssy.new
-    c.process(File.read( "#{here}/fiddle.cssy"))
-    c.data.should == fiddle
-    c.to_s.should == File.read( "#{here}/fiddle.css")
+    c.process(File.read( "#{here}/basics.cssy"))
+    c.data.should == basics
+    c.to_s.should == File.read( "#{here}/basics.css")
   end
   
   
