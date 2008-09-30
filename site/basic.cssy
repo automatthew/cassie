@@ -1,8 +1,8 @@
-@default = "#212F54"
+@full = "700px"
 
 body { background_color "#F8F7F1"}
 div.content! { 
-  width "700px"; margin "25px auto"
+  width @full; margin "25px auto"
   
   h1 { color @default }
   

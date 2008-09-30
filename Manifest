@@ -3,6 +3,7 @@ lib/cassandra.rb
 lib/properties.rb
 lib/tags.rb
 Manifest
+misc/dan.cssy
 misc/dan.rb
 misc/meyer_reset.css
 README.rdoc
@@ -12,8 +13,8 @@ site/cssy_title.jpg
 site/flower.png
 site/index.mab
 site/ruby.cssy
+test/assigns.rb
+test/basics.css
+test/basics.cssy
 test/basics.rb
-test/dan.cssy
-test/fiddle.css
-test/fiddle.cssy
 test/helper.rb

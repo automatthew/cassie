@@ -43,7 +43,7 @@ require 'tags'
 class Cassandra
   
   # Clear out unneeded methods
-  METHODS = %w( class instance_eval send __send__ __id__ )
+  METHODS = %w( class instance_eval send __send__ __id__ instance_variable_set )
   instance_methods.each { |m| undef_method( m ) unless METHODS.include? m }
   
   attr_reader :data
@@ -63,6 +63,12 @@ class Cassandra
     @state = :closed_block
   end
   
+  def instance_variables(hashlike)
+    hashlike.each do |key,val|
+      instance_variable_set("@#{key}",val)
+    end
+  end
+  
   # Create a new instance and process the supplied block, returning the instance.
   # 
   #   css = Cssy.process do
@@ -70,8 +76,8 @@ class Cassandra
   #       li { list_style :none }
   #     end
   #   end
-  def self.process(*args,&block)
-    self.new.process(*args,&block)
+  def self.process(*args, &block)
+    self.new.process(*args, &block)
   end
   
   # Process the supplied block (storing the result internally as an array in @data).  
@@ -79,10 +85,13 @@ class Cassandra
   # 
   # If no block is given, join all arguments with "\n" and eval the result.  Dubious utility.
   def process(*args, &block)
+    assigns = args[0]      if args[0].is_a? Hash
+    string, assigns = args if args[0].is_a? String
+    instance_variables(assigns) if assigns
     if block
       instance_eval(&block)
-    else
-      instance_eval(args.join("\n"))
+    elsif string
+      instance_eval(string)
     end
     self
   end

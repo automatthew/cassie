@@ -1,5 +1,4 @@
 require 'syntax/convertors/html'
-convertor = Syntax::Convertors::HTML.for_syntax "ruby"
 
 html do 
   head do
@@ -11,7 +10,17 @@ html do
     div.content! do
       img.logo! :src => "cssy_title.jpg"
       div.ruby.example! do
-        convertor.convert( File.read( "site/basic.rb" ) ).to_s
+        example = <<TEXT
+css = Cssy.new
+css.process(:default => "#212F54") do
+  
+  #{File.readlines( "site/basic.cssy").join("  ") }
+  
+end
+
+css.to_s
+TEXT
+        Syntax::Convertors::HTML.for_syntax("ruby").convert( example ).to_s
       end
       ul.links! do
         li { a "GitHub", :href => "http://github.com/automatthew/cassandra" }

@@ -1,4 +1,4 @@
-x = Cssy.new.process do
+css = Cssy.new.process do
 
   @default = "#212F54"
 
@@ -19,4 +19,4 @@ x = Cssy.new.process do
   
 end
 
-puts x.data.inspect
+css.to_s

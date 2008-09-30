@@ -8,11 +8,11 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matthew King"]
-  s.date = %q{2008-09-08}
+  s.date = %q{2008-09-30}
   s.description = %q{Generates CSS using Ruby, like Markaby}
   s.email = %q{automatthew@gmail.com}
   s.extra_rdoc_files = ["lib/cassandra.rb", "lib/properties.rb", "lib/tags.rb", "README.rdoc"]
-  s.files = ["cassandra.gemspec", "lib/cassandra.rb", "lib/properties.rb", "lib/tags.rb", "Manifest", "misc/dan.rb", "misc/meyer_reset.css", "README.rdoc", "site/basic.cssy", "site/basic.rb", "site/cssy_title.jpg", "site/flower.png", "site/index.mab", "site/ruby.cssy", "test/basics.rb", "test/dan.cssy", "test/fiddle.css", "test/fiddle.cssy", "test/helper.rb"]
+  s.files = ["cassandra.gemspec", "lib/cassandra.rb", "lib/properties.rb", "lib/tags.rb", "Manifest", "misc/dan.cssy", "misc/dan.rb", "misc/meyer_reset.css", "README.rdoc", "site/basic.cssy", "site/basic.rb", "site/cssy_title.jpg", "site/flower.png", "site/index.mab", "site/ruby.cssy", "test/assigns.rb", "test/basics.css", "test/basics.cssy", "test/basics.rb", "test/helper.rb"]
   s.has_rdoc = true
   s.homepage = %q{}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Cassandra", "--main", "README.rdoc"]
@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = %q{cassandra}
   s.rubygems_version = %q{1.2.0}
   s.summary = %q{Generates CSS using Ruby, like Markaby}
-  s.test_files = ["test/basics.rb", "test/helper.rb"]
+  s.test_files = ["test/assigns.rb", "test/basics.rb", "test/helper.rb"]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
@@ -92,6 +92,7 @@ end
 # 
 # 
 # # List all the desired pages as dependencies on :compile
+# desc "compile templates to html and css"
 # task :compile => %w{ site/index.html site/basic.css site/ruby.css }
 # 
 # task :clean do
@@ -103,7 +104,7 @@ end
 #   mab(t.source, t.name)
 # end
 # 
-# file 'site/index.mab' => [ 'site/basic.rb' ]
+# file 'site/index.html' => [ 'site/basic.css', 'site/index.mab' ]
 # 
 # rule '.css' => [ '.cssy' ] do |t|
 #   cssify(t.source, t.name)
@@ -122,7 +123,8 @@ end
 # end
 # 
 # def cssify(source, target)
-#   c = Cssy.new.process(File.read(source))
+#   cssy = File.read(source)
+#   c = Cssy.new.process(cssy, { :default => "#212F54" })
 #   File.open(target, 'w') do |f|
 #     f.puts c.to_s
 #   end

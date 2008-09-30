@@ -54,6 +54,7 @@ end
 
 
 # List all the desired pages as dependencies on :compile
+desc "compile templates to html and css"
 task :compile => %w{ site/index.html site/basic.css site/ruby.css }
 
 task :clean do
@@ -65,7 +66,7 @@ rule '.html' => [ '.mab' ] do |t|
   mab(t.source, t.name)
 end
 
-file 'site/index.mab' => [ 'site/basic.rb' ]
+file 'site/index.html' => [ 'site/basic.css', 'site/index.mab' ]
 
 rule '.css' => [ '.cssy' ] do |t|
   cssify(t.source, t.name)
@@ -84,7 +85,8 @@ def mab(source, target)
 end
 
 def cssify(source, target)
-  c = Cssy.new.process(File.read(source))
+  cssy = File.read(source)
+  c = Cssy.new.process(cssy, { :default => "#212F54" })
   File.open(target, 'w') do |f|
     f.puts c.to_s
   end
