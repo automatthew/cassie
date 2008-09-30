@@ -17,4 +17,5 @@ test/assigns.rb
 test/basics.css
 test/basics.cssy
 test/basics.rb
+test/comments.rb
 test/helper.rb

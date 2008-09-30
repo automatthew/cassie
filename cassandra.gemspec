@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = %q{Generates CSS using Ruby, like Markaby}
   s.email = %q{automatthew@gmail.com}
   s.extra_rdoc_files = ["lib/cassandra.rb", "lib/properties.rb", "lib/tags.rb", "README.rdoc"]
-  s.files = ["cassandra.gemspec", "lib/cassandra.rb", "lib/properties.rb", "lib/tags.rb", "Manifest", "misc/dan.cssy", "misc/dan.rb", "misc/meyer_reset.css", "README.rdoc", "site/basic.cssy", "site/basic.rb", "site/cssy_title.jpg", "site/flower.png", "site/index.mab", "site/ruby.cssy", "test/assigns.rb", "test/basics.css", "test/basics.cssy", "test/basics.rb", "test/helper.rb"]
+  s.files = ["cassandra.gemspec", "lib/cassandra.rb", "lib/properties.rb", "lib/tags.rb", "Manifest", "misc/dan.cssy", "misc/dan.rb", "misc/meyer_reset.css", "README.rdoc", "site/basic.cssy", "site/basic.rb", "site/cssy_title.jpg", "site/flower.png", "site/index.mab", "site/ruby.cssy", "test/assigns.rb", "test/basics.css", "test/basics.cssy", "test/basics.rb", "test/comments.rb", "test/helper.rb"]
   s.has_rdoc = true
   s.homepage = %q{}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Cassandra", "--main", "README.rdoc"]
@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = %q{cassandra}
   s.rubygems_version = %q{1.2.0}
   s.summary = %q{Generates CSS using Ruby, like Markaby}
-  s.test_files = ["test/assigns.rb", "test/basics.rb", "test/helper.rb"]
+  s.test_files = ["test/assigns.rb", "test/basics.rb", "test/comments.rb", "test/helper.rb"]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

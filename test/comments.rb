@@ -8,7 +8,7 @@ describe "CSS comment method" do
       div do
         ul do
           li do 
-            comment "What an ugly list!"
+            add_comment "What an ugly list!"
             background :red
           end
         end
@@ -24,7 +24,7 @@ STRING
   it "can be used in helper methods at property level" do
 
     Cssy.process do
-      def red_comment; comment "What an ugly list!"; :red; end
+      def red_comment; add_comment "What an ugly list!"; :red; end
       
       div do
         ul do

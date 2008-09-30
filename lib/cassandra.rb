@@ -130,7 +130,7 @@ class Cassandra
     @properties[-1] << "#{css_attr}: #{args.join(' ')};"
   end
   
-  def comment(string)
+  def add_comment(string)
     @properties[-1] << "/* #{string} */"
   end
 
