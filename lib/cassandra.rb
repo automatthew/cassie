@@ -100,7 +100,7 @@ class Cassandra
   def to_s
     @data.map do |sel|
       properties = sel.last.join("\n  ")
-      "#{sel.first} {\n  #{properties}\n}\n"
+      "#{sel.first} {\n  #{properties}\n}\n" unless properties.empty?
     end.join
   end
   
@@ -128,6 +128,10 @@ class Cassandra
   #
   def property(css_attr, *args)
     @properties[-1] << "#{css_attr}: #{args.join(' ')};"
+  end
+  
+  def comment(string)
+    @properties[-1] << "/* #{string} */"
   end
 
   # Catch unknown methods and treat them as CSS class or id selectors.  This may
