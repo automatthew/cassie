@@ -1,23 +1,31 @@
 module Experimental
-  module Palettes
     
     class Palette
       
-      def initialize(colors)
-        @colors = []; @names = {}
-        if colors.first.length == 2 # This is how we prefer our input, but you can make a palette without it.
-          colors.each {|n, c| @names[n] = c; @colors << c }
-        else
-          colors.each {|c| @colors << c }
-        end
+      attr_reader :colors
+      
+      # Palette colors may be supplied as an array of values, or an array of name/value pairs:
+      #   Palette.new [ "#eeeeee", "#666600" ]
+      #   Palette.new [ ["red", "#ff0000"], ["blue", "#0000ff"] ]
+      
+      def initialize(color_array)
+        @colors = color_array
+      end
+      
+      def names
+        n = []
+        # We could use #map here, but then I'd have to use #compact
+        @colors.each { |c| c.respond_to?( :first ) ? n << c.first : nil }
+        n
       end
 
       def [](arg)
-        if arg.is_a? Integer
-          @colors[arg]
-        else
-          @names[arg]
-        end
+        color = arg.is_a?(Integer) ? @colors[arg] : @colors.assoc(arg)
+        color.respond_to?(:last) ? color.last : color
+      end
+      
+      def to_hash
+        Hash[ *@colors.flatten ]
       end
       
     end
@@ -27,26 +35,27 @@ module Experimental
       require 'net/http'
       require 'hpricot'
       
-      def initialize(args, names=false)
-        if args.is_a? Hash
-          raise ArgumentError if args[:keywords].nil?
-          params = args.inject {|p,(a,v)| p + "#{a}=#{b}&" } # We will always add a format, so don't fear the trailing '&'
-        else
-          params = "keywords=#{args.gsub!(' ','+')}&"    # we can do more filtering, if you want
-        end
-        xml = Hpricot.XML( Net::HTTP.get( URI.parse( 'http://www.colourlovers.com/api/palettes?' + params + 'format=xml' )))
-        colors = []
-        xml.at("colors").search("hex").each {|c| colors << c.inner_text} #inject doesn't seem to work :(
+      attr_reader :image_url
+      
+      def initialize(palette_id, names=false)
+        # This appears to be a better URL for our purposes
+        uri = URI.parse( "http://www.colourlovers.com/api/palette/#{palette_id}?format=xml")
+        xml = Hpricot.XML( Net::HTTP.get( uri ))
+        colors = xml.at("colors").search("hex").map { |c| c.inner_text }
         
         if names
           cnames=[] 
-          colors.each {|c| cnames << Hpricot.XML( Net::HTTP.get( URI.parse( 'http://www.colourlovers.com/api/color/' + c + '?format=xml' ))).at("title").inner_text }
-          super colors.map! {|c| [cnames.shift,c] }
+          colors.each do |c|
+            # interpolation is faster than concatenation
+            uri = URI.parse( "http://www.colourlovers.com/api/color/#{c}?format=xml")
+            xml = Hpricot.XML( Net::HTTP.get( uri ))
+            cnames << xml.at("title").inner_text
+          end
+          super colors.map! { |c| [cnames.shift, c] }
         else
           super colors
         end
       end
       
     end
-  end
 end
